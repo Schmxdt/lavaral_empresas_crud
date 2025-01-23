@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editar Empresa</title>
+</head>
+<body>
+    <h1>Editar Empresa</h1>
+    <form id="editForm">
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="endereco" placeholder="Endereço">
+        <button type="submit">Salvar</button>
+    </form>
+
+    <script>
+        async function loadEmpresa(id) {
+            const response = await fetch(`/api/empresas/${id}`);
+            const empresa = await response.json();
+            document.getElementById('nome').value = empresa.nome;
+            document.getElementById('email').value = empresa.email;
+            document.getElementById('endereco').value = empresa.endereco;
+        }
+
+        const id = new URLSearchParams(window.location.search).get('id');
+        loadEmpresa(id);
+
+        document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                endereco: document.getElementById('endereco').value,
+            };
+
+            await fetch(`/api/empresas/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            window.location.href = 'empresas.html';
+        });
+    </script>
+</body>
+</html>

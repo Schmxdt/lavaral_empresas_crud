@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Empresas</title>
+</head>
+<body>
+    <h1>Empresas</h1>
+    <button onclick="createEmpresa()">Nova Empresa</button>
+    <input type="text" id="search" placeholder="Buscar empresas..." onkeyup="searchEmpresas()">
+    <table id="empresasTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function loadEmpresas() {
+            const response = await fetch('/api/empresas', {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            const empresas = await response.json();
+
+            const tableBody = document.querySelector('#empresasTable tbody');
+            tableBody.innerHTML = '';
+
+            empresas.forEach(empresa => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${empresa.nome}</td>
+                    <td>${empresa.email}</td>
+                    <td>${empresa.endereco}</td>
+                    <td>
+                        <button onclick="editEmpresa(${empresa.id})">Editar</button>
+                        <button onclick="deleteEmpresa(${empresa.id})">Excluir</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function deleteEmpresa(id) {
+            await fetch(`/api/empresas/${id}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            loadEmpresas();
+        }
+
+        loadEmpresas();
+    </script>
+</body>
+</html>
