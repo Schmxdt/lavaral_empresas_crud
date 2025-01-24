@@ -1,0 +1,112 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilização geral */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #0056b3;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.navbar h1 {
+  font-size: 24px;
+}
+
+#btn-back {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-back:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Formulário */
+.edit-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.buttons {
+  text-align: center;
+}
+
+#btn-save {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-save:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .edit-container {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  #btn-back {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}

@@ -3,6 +3,11 @@ const empresasList = document.getElementById('empresas-list');
 const btnAddEmpresa = document.getElementById('btn-add-empresa');
 const btnVoltarMenu = document.getElementById('btn-voltar-menu');
 
+// Redireciona para a tela de cadastro ao clicar no botão "Adicionar Empresa"
+btnAddEmpresa.addEventListener('click', () => {
+  window.location.href = '../empresas-edit/empresas-edit.html';
+});
+
 // Redireciona para a tela de menu ao clicar no botão "Voltar ao Menu"
 btnVoltarMenu.addEventListener('click', () => {
   window.location.href = '../../menu/menu.html';
