@@ -3,6 +3,11 @@ document.getElementById('btn-empresas').addEventListener('click', () => {
   window.location.href = '../empresas/empresas-list/empresas-list.html';
 });
 
+// Redireciona para a página de login
+document.getElementById('btn-logout').addEventListener('click', () => {
+  window.location.href = '../login/login.html';
+});
+
 // Atualiza o dashboard
 async function updateDashboard() {
   try {
