@@ -1,0 +1,126 @@
+    /* Estilização geral */
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #e2e2e2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .empresas-container {
+      margin: 10px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: start;
+      font-size: 32px;
+      color: #333;
+    }
+
+    /* Botões superiores */
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    /* Botão de adicionar empresa */
+    #btn-add-empresa, #btn-voltar-menu {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    #btn-add-empresa {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #btn-add-empresa:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+    }
+
+    /* Botão de voltar ao menu */
+    #btn-voltar-menu {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #btn-voltar-menu:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Estilo da tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    table th {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: start;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    table td {
+      padding: 15px;
+      font-size: 14px;
+      border-bottom: 1px solid #007bff; 
+    }
+
+    table td:hover {
+      background-color: #f1f5f9;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Ícones de ações */
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-edit {
+      background-color: #ffc107;
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background-color: #e0a800;
+      transform: scale(1.1);
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background-color: #c82333;
+      transform: scale(1.1);
+    }

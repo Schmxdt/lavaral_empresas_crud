@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Editar Empresa</title>
-</head>
-<body>
-    <h1>Editar Empresa</h1>
-    <form id="editForm">
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="email" id="email" placeholder="Email">
-        <input type="text" id="endereco" placeholder="Endereço">
-        <button type="submit">Salvar</button>
-    </form>
-
-    <script>
-        async function loadEmpresa(id) {
+      async function loadEmpresa(id) {
             const response = await fetch(`/api/empresas/${id}`);
             const empresa = await response.json();
             document.getElementById('nome').value = empresa.nome;
@@ -43,6 +28,3 @@
 
             window.location.href = 'empresas.html';
         });
-    </script>
-</body>
-</html>

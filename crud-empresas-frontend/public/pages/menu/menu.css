@@ -1,0 +1,141 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo geral */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background: #0056b3;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  font-size: 24px;
+  color: #fff;
+}
+
+#btn-empresas {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-empresas:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+#btn-logout {
+  background-color: #dc3545;
+  color: white;
+}
+
+#btn-logout:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+
+/* Container principal */
+.menu-container {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 900px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+/* Dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats {
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.stats p {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Gráfico */
+.chart-container {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+  max-width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #btn-empresas {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .stats h2 {
+    font-size: 18px;
+  }
+
+  .stats p {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats h2 {
+    font-size: 16px;
+  }
+
+  .stats p {
+    font-size: 24px;
+  }
+}

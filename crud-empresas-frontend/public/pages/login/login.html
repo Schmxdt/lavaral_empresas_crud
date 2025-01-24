@@ -1,38 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="./login.css">
 </head>
 <body>
-    <h1>Login</h1>
-    <form id="loginForm">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button type="submit">Entrar</button>
+  <div class="login-container">
+    <form id="login-form">
+      <h1>Bem-vindo</h1>
+      <p>Por favor, faça o login para continuar</p>
+      <input type="email" id="email" placeholder="Digite seu email" required>
+      <input type="password" id="password" placeholder="Digite sua senha" required>
+      <button type="submit">Entrar</button>
     </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                window.location.href = '/pages/menu.html';
-            } else {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                window.location.href = '/pages/menu.html'; 
-            }
-        });
-    </script>
+  </div>
+  <script src="./login.js"></script>
 </body>
 </html>

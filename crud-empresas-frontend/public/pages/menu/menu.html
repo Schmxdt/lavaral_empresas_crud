@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Menu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Empresas</title>
+    <script defer src="menu.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="menu.css">
 </head>
+
 <body>
-    <h1>Dashboard</h1>
-    <canvas id="empresaChart"></canvas>
-    <a href="empresas.html">Ir para Empresas</a>
-
+    <header class="navbar">
+        <div class="navbar-container">
+            <h1>Dashboard</h1>
+            <div class="navbar-actions">
+                <button id="btn-logout">Logout</button>
+                <button id="btn-empresas">Gerenciar Empresas</button>
+            </div>
+        </div>
+    </header>
+    <main class="menu-container">
+        <div class="dashboard-container">
+            <div class="stats">
+                <h2>Total de Empresas</h2>
+                <p><span id="total-empresas">0</span></p>
+            </div>
+            <div class="chart-container">
+                <canvas id="empresas-chart"></canvas>
+            </div>
+        </div>
+    </main>
     <script>
-        async function loadDashboard() {
-            const response = await fetch('/api/empresas', {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-            });
-            const empresas = await response.json();
+        // Redireciona para a página de empresas
+        document.getElementById('btn-empresas').addEventListener('click', () => {
+            window.location.href = 'empresas.html';
+        });
 
-            const ctx = document.getElementById('empresaChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Empresas'],
-                    datasets: [{
-                        label: 'Quantidade',
-                        data: [empresas.length],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                    }],
-                },
-                options: {
-                    scales: {
-                        y: { beginAtZero: true },
-                    },
-                },
-            });
-        }
-
-        loadDashboard();
+        // Redireciona para a página de login
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
     </script>
 </body>
+
 </html>
