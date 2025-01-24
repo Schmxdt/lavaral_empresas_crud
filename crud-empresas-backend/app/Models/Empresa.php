@@ -10,21 +10,15 @@ class Empresa extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * Os atributos que podem ser atribuídos em massa.
-     *
-     * @var array<int, string>
-     */
+    // Tabela associada à model (opcional, se o nome não for o padrão pluralizado)
+    protected $table = 'empresas';
+
+    // Atributos que podem ser preenchidos em massa
     protected $fillable = [
         'nome',
         'email',
         'endereco',
+        'telefone',
+        'site'
     ];
-
-    /**
-     * As colunas que serão tratadas como datas.
-     *
-     * @var array<string>
-     */
-    protected $dates = ['deleted_at'];
 }

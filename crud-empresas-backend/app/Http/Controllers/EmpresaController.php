@@ -24,6 +24,8 @@ class EmpresaController extends Controller
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:empresas',
             'endereco' => 'required|string',
+            'telefone' => 'nullable|string',
+            'site' => 'nullable|string'
         ]);
 
         $empresa = Empresa::create($validatedData);
@@ -69,6 +71,8 @@ class EmpresaController extends Controller
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:empresas,email,' . $id,
             'endereco' => 'required|string',
+            'telefone' => 'nullable|string',
+            'site' => 'nullable|string'
         ]);
 
         $empresa->update($validatedData);
