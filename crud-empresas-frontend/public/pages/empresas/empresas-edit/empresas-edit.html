@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Empresa</title>
+    <title>Cadastrar Empresa</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="empresas-edit.js"></script>
     <link rel="stylesheet" href="empresas-edit.css">
 </head>
 <body>
     <header class="navbar">
         <div class="navbar-container">
-            <h1>Editar Empresa</h1>
+            <h1 id="form-title">Cadastrar Empresa</h1>
             <button id="btn-back">Voltar para Lista</button>
         </div>
     </header>
@@ -25,8 +26,14 @@
             <label for="endereco">Endereço:</label>
             <input type="text" id="endereco" placeholder="Endereço" required>
 
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" placeholder="Telefone" required>
+
+            <label for="site">Site:</label>
+            <input type="url" id="site" placeholder="Site (https://)" required>
+
             <div class="buttons">
-                <button type="submit" id="btn-save">Salvar</button>
+                <button type="submit" id="btn-save">Cadastrar</button>
             </div>
         </form>
     </main>

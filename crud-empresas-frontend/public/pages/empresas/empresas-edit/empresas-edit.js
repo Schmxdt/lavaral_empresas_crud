@@ -1,135 +1,81 @@
-async function loadEmpresa(id) {
-    const response = await fetch(`/api/empresas/${id}`);
-    const empresa = await response.json();
-    document.getElementById('nome').value = empresa.nome;
-    document.getElementById('email').value = empresa.email;
-    document.getElementById('endereco').value = empresa.endereco;
-}
-
-const id = new URLSearchParams(window.location.search).get('id');
-loadEmpresa(id);
-
-document.getElementById('editForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = {
-        nome: document.getElementById('nome').value,
-        email: document.getElementById('email').value,
-        endereco: document.getElementById('endereco').value,
-    };
-
-    await fetch(`/api/empresas/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify(data),
-    });
-
-    window.location.href = 'empresas.html';
-});
-
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const isView = params.get('isView') === 'true';
 
-    const id = params.get('id'); // Obtém o ID
-    const isView = params.get('isView') === 'true'; // Verifica se é modo visualização
+    const elements = {
+        form: document.getElementById('editForm'),
+        nome: document.getElementById('nome'),
+        email: document.getElementById('email'),
+        endereco: document.getElementById('endereco'),
+        telefone: document.getElementById('telefone'),
+        site: document.getElementById('site'),
+        btnSave: document.getElementById('btn-save'),
+        btnBack: document.getElementById('btn-back'),
+        formTitle: document.getElementById('form-title')
+    };
 
-    const nomeInput = document.getElementById('nome');
-    const emailInput = document.getElementById('email');
-    const enderecoInput = document.getElementById('endereco');
-    const btnSave = document.getElementById('btn-save');
-    const btnBack = document.getElementById('btn-back');
+    const setViewMode = (isView) => {
+        if (elements.formTitle) elements.formTitle.textContent = isView ? 'Visualização de Empresa' : (id ? 'Edição de Empresa' : 'Cadastrar Empresa');
+        if (elements.btnSave) elements.btnSave.style.display = isView ? 'none' : 'block';
+        Object.values(elements).forEach(el => {
+            if (el && el.tagName === 'INPUT') el.disabled = isView;
+        });
+    };
 
-    // Se for modo visualização, desativa os campos e o botão salvar
-    if (isView) {
-        nomeInput.disabled = true;
-        emailInput.disabled = true;
-        enderecoInput.disabled = true;
-        btnSave.style.display = 'none';
-    }
-
-    // Função para carregar os dados da empresa
-    async function loadEmpresaData() {
-        if (!id) return; // Sem ID, não carrega dados
+    const loadEmpresaData = async () => {
+        if (!id) return;
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/empresas/${id}`);
-            const result = await response.json();
+            const response = await axios.get(`http://127.0.0.1:8000/api/empresas/empresas-edit/empresas-edit.html/${id}`);
+            const empresa = response.data.data;
 
-            if (result.success) {
-                nomeInput.value = result.data.nome;
-                emailInput.value = result.data.email;
-                enderecoInput.value = result.data.endereco;
+            if (response.data.success) {
+                Object.keys(elements).forEach(key => {
+                    if (elements[key] && empresa[key]) elements[key].value = empresa[key];
+                });
             } else {
                 alert('Erro ao carregar os dados da empresa.');
             }
         } catch (error) {
-            console.error('Erro ao buscar empresa:', error);
+            console.error('Erro ao carregar os dados da empresa:', error);
         }
-    }
+    };
 
-    // Salvar alterações
-    document.getElementById('editForm').addEventListener('submit', async (event) => {
+    const saveEmpresaData = async (event) => {
         event.preventDefault();
 
-        // faz o create
-        const newData = {
-            nome: nomeInput.value,
-            email: emailInput.value,
-            endereco: enderecoInput.value,
+        const empresaData = {
+            nome: elements.nome.value,
+            email: elements.email.value,
+            endereco: elements.endereco.value,
+            telefone: elements.telefone.value,
+            site: elements.site.value
         };
 
-        if (!id) {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/empresas', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(newData),
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('Empresa criada com sucesso!');
-                    window.location.href = 'empresas.html';
-                } else {
-                    alert('Erro ao criar empresa.');
-                }
-            } catch (error) {
-                console.error('Erro ao criar empresa:', error);
+        try {
+            let response;
+            if (id) {
+                response = await axios.put(`http://127.0.0.1:8000/api/empresas/${id}`, empresaData);
+            } else {
+                response = await axios.post('http://127.0.0.1:8000/api/empresas', empresaData);
             }
-        } else {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/empresas/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedData),
-                });
 
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('Empresa atualizada com sucesso!');
-                    window.location.href = 'empresas.html';
-                } else {
-                    alert('Erro ao atualizar empresa.');
-                }
-            } catch (error) {
-                console.error('Erro ao atualizar empresa:', error);
+            if (response.data.success) {
+                alert(`Empresa ${id ? 'atualizada' : 'cadastrada'} com sucesso!`);
+                window.location.href = '../empresas-list/empresas-list.html';
+            } else {
+                alert('Erro ao salvar a empresa.');
             }
-        };
-    });
+        } catch (error) {
+            console.error('Erro ao salvar a empresa:', error);
+            alert('Erro ao salvar a empresa.');
+        }
+    };
 
-    // Voltar para a lista
-    btnBack.addEventListener('click', () => {
-        window.location.href = 'empresas.html';
-    });
+    if (elements.form) elements.form.addEventListener('submit', saveEmpresaData);
+    if (elements.btnBack) elements.btnBack.addEventListener('click', () => window.location.href = '../empresas-list/empresas-list.html');
 
-    // Carrega os dados da empresa ao iniciar
+    setViewMode(isView);
     loadEmpresaData();
 });

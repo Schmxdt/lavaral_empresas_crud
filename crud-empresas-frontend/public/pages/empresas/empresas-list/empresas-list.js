@@ -35,9 +35,9 @@ function renderTable(empresas) {
   empresas.forEach((empresa) => {
     const row = document.createElement('tr');
 
-    // Quando clica na linha, vai para a página de detalhes
+    // Quando clica na linha, vai para a página de edição da empresa
     row.addEventListener('click', () => {
-      window.location.href = `empresa-detalhes.html?id=${empresa.id}`;
+      window.location.href = `../empresas-edit/empresas-edit.html?id=${empresa.id}&isView=true`;
     });
 
     row.innerHTML = `
@@ -67,7 +67,7 @@ function stopPropagation(event) {
 // Função para editar empresa
 function editEmpresa(event, id) {
   stopPropagation(event);
-  alert(`Editar empresa com ID ${id}`);
+  window.location.href = `../empresas-edit/empresas-edit.html?id=${id}`;
 }
 
 // Função para excluir empresa

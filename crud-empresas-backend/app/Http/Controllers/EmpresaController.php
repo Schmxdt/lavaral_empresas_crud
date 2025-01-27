@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empresa;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class EmpresaController extends Controller
 {
@@ -17,25 +19,66 @@ class EmpresaController extends Controller
         ], 200);
     }
 
+    public function checkExistingEmail($email)
+    {
+        $existingEmpresa = Empresa::withTrashed()->where('email', $email)->first();
+
+        if ($existingEmpresa && !$existingEmpresa->trashed()) {
+            return [
+                'success' => false,
+                'message' => 'Erro de validação.',
+                'errors' => ['email' => ['O email já está em uso.']]
+            ];
+        }
+
+        return null;
+    }
+
     // Salva uma nova empresa no banco
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:empresas',
+            'email' => 'required|email',
             'endereco' => 'required|string',
             'telefone' => 'nullable|string',
             'site' => 'nullable|string'
         ]);
 
-        $empresa = Empresa::create($validatedData);
+        // Verifica se o email já existe, incluindo registros excluídos logicamente
+        $existingEmpresa = EmpresaController::checkExistingEmail($validatedData['email']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Empresa criada com sucesso!',
-            'data' => $empresa
-        ], 201);
+        if ($existingEmpresa) {
+            return response()->json($existingEmpresa, 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $empresa = Empresa::create($validatedData);
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Empresa criada com sucesso!',
+                'data' => $empresa
+            ], 201);
+        } catch (ValidationException $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro de validação.',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao criar a empresa.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
+
 
     // Mostra os detalhes de uma empresa específica
     public function show($id)
@@ -69,19 +112,30 @@ class EmpresaController extends Controller
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:empresas,email,' . $id,
+            'email' => 'required|email',
             'endereco' => 'required|string',
             'telefone' => 'nullable|string',
             'site' => 'nullable|string'
         ]);
 
-        $empresa->update($validatedData);
+        DB::beginTransaction();
+        try {
+            $empresa->update($validatedData);
+            DB::commit();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Empresa atualizada com sucesso!',
-            'data' => $empresa
-        ], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Empresa atualizada com sucesso!',
+                'data' => $empresa
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao atualizar a empresa.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     // Remove uma empresa do banco de dados
@@ -96,11 +150,22 @@ class EmpresaController extends Controller
             ], 404);
         }
 
-        $empresa->delete();
+        DB::beginTransaction();
+        try {
+            $empresa->delete();
+            DB::commit();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Empresa excluída com sucesso!'
-        ], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Empresa excluída com sucesso!'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao excluir a empresa.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }
