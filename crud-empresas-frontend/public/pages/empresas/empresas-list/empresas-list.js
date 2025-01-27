@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAddEmpresa = document.getElementById('btn-add-empresa');
   const btnVoltarMenu = document.getElementById('btn-voltar-menu');
   const searchInput = document.getElementById('search-input');
+  const btnRefresh = document.getElementById('btn-refresh');
   let empresas = [];
   let sortOrder = 'asc';
   let sortColumn = '';
@@ -18,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', (event) => {
     filterEmpresas(event.target.value);
+  });
+
+  // Atualiza a lista de empresas ao clicar no botão "Atualizar"
+  btnRefresh.addEventListener('click', () => {
+    fetchEmpresas();
   });
 
   document.querySelectorAll('.fa-sort').forEach(icon => {
@@ -84,6 +90,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderTable(empresas);
+    updateSortIcons();
+  }
+
+  function updateSortIcons() {
+    document.querySelectorAll('th').forEach(th => {
+      th.classList.remove('sorted-asc', 'sorted-desc');
+    });
+
+    const sortedColumn = document.querySelector(`th[data-column="${sortColumn}"]`);
+    if (sortedColumn) {
+      sortedColumn.classList.add(sortOrder === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    }
   }
 
   // Filter empresas by search term
