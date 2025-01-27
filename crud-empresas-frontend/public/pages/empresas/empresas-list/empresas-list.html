@@ -15,13 +15,20 @@
       <button id="btn-voltar-menu">Voltar ao Menu</button>
       <button id="btn-add-empresa">Adicionar Empresa</button>
     </div>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Pesquisar...">
+      <button id="clear-search" onclick="resetInput()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+ 
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Endereço</th>
+          <th>ID <i class="fas fa-sort" data-column="id"></i></th>
+          <th>Nome <i class="fas fa-sort" data-column="nome"></i></th>
+          <th>Email <i class="fas fa-sort" data-column="email"></i></th>
+          <th>Endereço <i class="fas fa-sort" data-column="endereco"></i></th>
           <th>Ações</th>
         </tr>
       </thead>

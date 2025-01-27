@@ -12,7 +12,7 @@ class EmpresaController extends Controller
     // Lista todas as empresas
     public function index()
     {
-        $empresas = Empresa::all();
+        $empresas = Empresa::orderBy('id')->get();
         return response()->json([
             'success' => true,
             'data' => $empresas
@@ -78,7 +78,6 @@ class EmpresaController extends Controller
             ], 500);
         }
     }
-
 
     // Mostra os detalhes de uma empresa específica
     public function show($id)
