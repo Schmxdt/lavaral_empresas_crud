@@ -13,16 +13,19 @@
     <h1>Empresas</h1>
     <div class="buttons-container">
       <button id="btn-voltar-menu">Voltar ao Menu</button>
-      <button id="btn-add-empresa">Adicionar Empresa</button>
-    </div>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Pesquisar...">
-      <button id="clear-search" onclick="resetInput()">
-        <i class="fas fa-times"></i>
-      </button>
     </div>
  
     <table>
+      <div class="buttons-container-table">
+        <button id="btn-refresh">Atualizar</button>
+          <div class="search-container">
+            <input type="text" id="search-input" placeholder="Pesquisar...">
+            <button id="clear-search" onclick="resetInput()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        <button id="btn-add-empresa">Adicionar Empresa</button>
+      </div>
       <thead>
         <tr>
           <th>ID <i class="fas fa-sort" data-column="id"></i></th>

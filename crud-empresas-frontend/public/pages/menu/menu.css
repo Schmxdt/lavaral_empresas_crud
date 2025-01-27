@@ -85,6 +85,25 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilização do botão de logout */
+#btn-logout {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #dc3545;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-logout:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+
 .stats h2 {
   font-size: 20px;
   margin-bottom: 10px;
@@ -111,6 +130,11 @@ canvas {
 
 /* Responsividade */
 @media (max-width: 768px) {
+  #btn-logout {
+    width: 100%;
+    max-width: 200px;
+  }
+
   .dashboard-container {
     flex-direction: column;
     gap: 15px;
