@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setViewMode = (isView) => {
         if (elements.formTitle) elements.formTitle.textContent = isView ? 'Visualização de Empresa' : (id ? 'Edição de Empresa' : 'Cadastrar Empresa');
+        if (elements.btnSave) elements.btnSave.textContent = id ? 'Atualizar' : 'Cadastrar';
         if (elements.btnSave) elements.btnSave.style.display = isView ? 'none' : 'block';
         Object.values(elements).forEach(el => {
             if (el && el.tagName === 'INPUT') el.disabled = isView;

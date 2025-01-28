@@ -1,116 +1,57 @@
-/* Estilização geral */
+/* Reset básico */
 body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
+/* Contêiner principal */
 .empresas-container {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Título */
 h1 {
     text-align: center;
-    color: #333;
+    font-size: 1.8rem;
+    color: #222;
     margin-bottom: 20px;
 }
 
-/* Botões superiores */
-.buttons-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#btn-voltar-menu {
-    background-color: #007bff;
-    color: white;
-}
-
-#btn-voltar-menu:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-/* Estilo do campo de pesquisa */
-.search-container {
-    display: flex;
-    align-items: center; 
-    width: 50%;
-}
-
-.search-container input {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    transition: border-color 0.3s ease;
-}
-
-.search-container input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.search-container button {
-    background-color: #dc3545;
-    color: white;
-}
-
-.search-container button:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-}
-
-.search-container button i {
-    margin: 0;
-}
-
-/* Botões de adicionar e atualizar */
+/* Botões e busca */
+.buttons-container,
 .buttons-container-table {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    gap: 10px;
 }
 
-#btn-add-empresa,
-#btn-refresh {
-    padding: 10px 20px;
+button {
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
 }
 
-#btn-add-empresa {
-    background-color: #28a745;
+button:hover {
+    transform: scale(1.03);
+}
+
+#btn-voltar-menu {
+    background-color: #0066cc;
     color: white;
-}
-
-#btn-add-empresa:hover {
-    background-color: #218838;
-    transform: scale(1.05);
 }
 
 #btn-refresh {
@@ -118,120 +59,201 @@ button {
     color: white;
 }
 
-#btn-refresh:hover {
-    background-color: #138496;
-    transform: scale(1.05);
+#btn-add-empresa {
+    background-color: #28a745;
+    color: white;
 }
 
-/* Estilo da tabela */
+/* Campo de busca */
+.search-container {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-container button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 4px;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #0066cc;
+}
+
+/* Tabela */
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+/* Estilizando o scrollbar */
+.table-container::-webkit-scrollbar {
+    width: 12px; /* Largura do scrollbar */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #007bff, #0056b3); /* Cor gradiente do thumb */
+    border-radius: 10px;
+    border: 2px solid #f1f1f1; /* Adiciona espaçamento ao redor do thumb */
+    transition: background 0.3s ease;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0056b3, #004494); /* Cor do thumb ao hover */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
-    border-radius: 8px;
-    overflow: hidden;
     background-color: white;
+    table-layout: fixed; /* Garante que o tamanho das colunas seja consistente */
 }
 
-table th {
-    background-color: #007bff;
+thead {
+    background-color: #0066cc;
     color: white;
-    padding: 15px;
+    font-size: 14px;
+}
+
+thead th {
+    padding: 12px;
     text-align: left;
-    text-transform: uppercase;
+    white-space: nowrap; /* Impede quebra de linha nos títulos */
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    white-space: nowrap; /* Impede quebra de linha no conteúdo */
     font-size: 14px;
 }
 
-table td {
-    padding: 15px;
-    font-size: 14px;
-    border-bottom: 1px solid #007bff;
+/* Define larguras fixas opcionais para colunas */
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+    width: 10%; /* ID */
 }
 
-table td:hover {
-    background-color: #f1f5f9;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+    width: 25%; /* Nome */
 }
 
-.fa-sort {
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+    width: 30%; /* Email */
+}
+
+thead th:nth-child(4),
+tbody td:nth-child(4) {
+    width: 25%; /* Endereço */
+}
+
+thead th:nth-child(5),
+tbody td:nth-child(5) {
+    width: 10%; /* Ações */
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
     cursor: pointer;
-    margin-left: 5px;
+}
+
+tbody td:last-child {
+    text-align: center;
 }
 
 /* Botões de ação */
 .btn-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
+    padding: 6px 8px;
+    font-size: 12px;
     border: none;
-    border-radius: 50%;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-left: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 5px;
+    color: white;
 }
 
 .btn-edit {
     background-color: #ffc107;
-    color: white;
-}
-
-.btn-edit:hover {
-    background-color: #e0a800;
-    transform: scale(1.1);
 }
 
 .btn-delete {
     background-color: #dc3545;
-    color: white;
-}
-
-.btn-delete:hover {
-    background-color: #c82333;
-    transform: scale(1.1);
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+    .buttons-container,
     .buttons-container-table {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .buttons-container-table button,
     .search-container {
-        margin-bottom: 10px;
-        width: 100%;
+        flex-direction: column;
     }
 
-    table th, table td {
+    table {
+        font-size: 13px;
+    }
+
+    thead th {
         padding: 10px;
-        font-size: 12px;
     }
 
-    .btn-action {
-        width: 25px;
-        height: 25px;
-        font-size: 14px;
+    tbody td {
+        padding: 10px;
+    }
+
+    thead th,
+    tbody td {
+        text-align: left;
     }
 }
 
 @media (max-width: 480px) {
-    .empresas-container {
-        padding: 10px;
+    h1 {
+        font-size: 1.5rem;
     }
 
-    table th, table td {
+    button {
+        font-size: 12px;
         padding: 8px;
-        font-size: 10px;
+    }
+
+    .search-container input {
+        font-size: 12px;
     }
 
     .btn-action {
-        width: 20px;
-        height: 20px;
+        font-size: 10px;
+    }
+
+    table {
         font-size: 12px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 8px;
     }
 }

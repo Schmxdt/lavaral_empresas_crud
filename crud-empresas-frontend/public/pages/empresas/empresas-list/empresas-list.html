@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Empresas</title>
   <script defer src="empresas-list.js"></script>
   <link rel="stylesheet" href="empresas-list.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
   <div class="empresas-container">
     <h1>Empresas</h1>
     <div class="buttons-container">
       <button id="btn-voltar-menu">Voltar ao Menu</button>
     </div>
- 
-    <table>
-      <div class="buttons-container-table">
-        <button id="btn-refresh">Atualizar</button>
-          <div class="search-container">
-            <input type="text" id="search-input" placeholder="Pesquisar...">
-            <button id="clear-search" onclick="resetInput()">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        <button id="btn-add-empresa">Adicionar Empresa</button>
+
+    <div class="buttons-container-table">
+      <button id="btn-refresh">Atualizar</button>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Pesquisar...">
+        <button id="clear-search" onclick="resetInput()">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <thead>
-        <tr>
-          <th>ID <i class="fas fa-sort" data-column="id"></i></th>
-          <th>Nome <i class="fas fa-sort" data-column="nome"></i></th>
-          <th>Email <i class="fas fa-sort" data-column="email"></i></th>
-          <th>Endereço <i class="fas fa-sort" data-column="endereco"></i></th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="empresas-list"></tbody>
-    </table>
-  </div> 
+      <button id="btn-add-empresa">Adicionar Empresa</button>
+    </div>
+
+    <!-- Contêiner com rolagem para o corpo da tabela -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID <i class="fas fa-sort" data-column="id"></i></th>
+            <th>Nome <i class="fas fa-sort" data-column="nome"></i></th>
+            <th>Email <i class="fas fa-sort" data-column="email"></i></th>
+            <th>Endereço <i class="fas fa-sort" data-column="endereco"></i></th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+      </table>
+    <div class="table-container">
+      <div class="scrollable-tbody">
+        <table>
+          <tbody class="empresas-list" id="empresas-list">
+            <!-- Conteúdo dinâmico será inserido aqui -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
